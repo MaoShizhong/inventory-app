@@ -9,7 +9,7 @@ const ManufacturerSchema = new Schema<Manufacturer>({
 });
 
 ManufacturerSchema.virtual('url').get(function (): string {
-    return `/inventory/manufacturer/${this._id}`;
+    return `/inventory/manufacturers/${this._id}`;
 });
 
 export const Manufacturer = model<Manufacturer>('Manufacturer', ManufacturerSchema);

@@ -30,7 +30,7 @@ ModelInstanceSchema.virtual('price').get(async function (): Promise<number> {
 });
 
 ModelInstanceSchema.virtual('url').get(function (): string {
-    return `/inventory/model/${this._id}`;
+    return `/inventory/instock/${this._id}`;
 });
 
 export const ModelInstance = model<ModelInstance>('ModelInstance', ModelInstanceSchema);

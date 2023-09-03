@@ -9,7 +9,7 @@ const InstrumentSchema = new Schema<Instrument>({
 });
 
 InstrumentSchema.virtual('url').get(function (): string {
-    return `/inventory/instrument/${this.type}`;
+    return `/inventory/instruments/${this.type.toLowerCase()}s`;
 });
 
 export const Instrument = model<Instrument>('Instrument', InstrumentSchema);

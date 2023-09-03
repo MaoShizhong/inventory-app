@@ -1,0 +1,24 @@
+doctype html
+html
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0")
+        title= title
+        link(rel='stylesheet' href='/stylesheets/styles.css')
+    body
+        header(class="flex-col flex gap-4 items-center pt-4 pb-2 border-b bg-slate-300")
+            h1(class="text-4xl font-bold text-center") Zhong & Co.
+            nav
+                ul(class="flex justify-center gap-4 w-[min(80vw,800px)] flex-wrap")
+                    li(class="hover:text-gray-500")
+                        a(href='/') Home
+                    li(class="hover:text-gray-500")
+                        a(href='/inventory/instruments') Instruments
+                    li(class="hover:text-gray-500")
+                        a(href='/inventory/modelinstances') In stock
+                    li(class="hover:text-gray-500")
+                        a(href='/inventory/manufacturers') Manufacturers
+                    li(class="hover:text-gray-500")
+                        a(href='/inventory/models') Models
+
+        block content

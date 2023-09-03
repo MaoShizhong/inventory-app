@@ -6,6 +6,6 @@ const ManufacturerSchema = new mongoose_1.Schema({
     name: { type: String, min: 1, required: true },
 });
 ManufacturerSchema.virtual('url').get(function () {
-    return `/inventory/manufacturer/${this._id}`;
+    return `/inventory/manufacturers/${this._id}`;
 });
 exports.Manufacturer = (0, mongoose_1.model)('Manufacturer', ManufacturerSchema);

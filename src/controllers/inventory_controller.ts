@@ -5,14 +5,14 @@ import asyncHandler from 'express-async-handler';
 
 export const index = asyncHandler(async (req: Request, res: Response) => {
     // Get details of books, book instances, authors and genre counts (in parallel)
-    const [instrumentCount, instrumentTypeCount] = await Promise.all([
+    const [inStockCount, instrumentTypeCount] = await Promise.all([
         Model.countDocuments({}).exec(),
         Instrument.countDocuments({}).exec(),
     ]);
 
     res.render('index', {
         title: 'Inventory',
-        instrumentCount: instrumentCount,
+        inStockCount: inStockCount,
         instrumentTypeCount: instrumentTypeCount,
     });
 });

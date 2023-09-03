@@ -30,7 +30,7 @@ mongoose_1.default.set('strictQuery', false);
 const main = () => __awaiter(void 0, void 0, void 0, function* () { return yield mongoose_1.default.connect(process.env.CONNECTION_STRING); });
 main().catch((err) => console.error(err));
 // view engine setup
-app.set('views', path_1.default.join(__dirname, 'views'));
+app.set('views', path_1.default.join(__dirname, '..', 'views'));
 app.set('view engine', 'pug');
 app.use((0, morgan_1.default)('dev'));
 app.use(express_1.default.json());

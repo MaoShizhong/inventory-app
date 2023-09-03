@@ -10,6 +10,6 @@ const ModelSchema = new mongoose_1.Schema({
     basePrice: { type: Number, required: true },
 });
 ModelSchema.virtual('url').get(function () {
-    return `/inventory/model/${this._id}`;
+    return `/inventory/models/${this._id}`;
 });
 exports.Model = (0, mongoose_1.model)('Model', ModelSchema);

@@ -18,13 +18,13 @@ const model_1 = require("../models/model");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 exports.index = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Get details of books, book instances, authors and genre counts (in parallel)
-    const [instrumentCount, instrumentTypeCount] = yield Promise.all([
+    const [inStockCount, instrumentTypeCount] = yield Promise.all([
         model_1.Model.countDocuments({}).exec(),
         instrument_1.Instrument.countDocuments({}).exec(),
     ]);
     res.render('index', {
         title: 'Inventory',
-        instrumentCount: instrumentCount,
+        inStockCount: inStockCount,
         instrumentTypeCount: instrumentTypeCount,
     });
 }));

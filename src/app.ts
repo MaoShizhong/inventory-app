@@ -26,7 +26,7 @@ const main = async () => await mongoose.connect(process.env.CONNECTION_STRING!);
 main().catch((err): void => console.error(err));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '..', 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));

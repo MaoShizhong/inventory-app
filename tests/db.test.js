@@ -10,7 +10,7 @@ const { Manufacturer } = require('../dist/models/manufacturer');
 const { Model } = require('../dist/models/model');
 const { ModelInstance } = require('../dist/models/model_instance');
 
-it('Connects to the correct database and created models/collections exist', async () => {
+it('Connects to the inventory_app database and pre-populated models/collections exist', async () => {
     /*
         At the time of testing, the database above was preloaded with 4 collections:
         - instruments - 4 documents
@@ -32,7 +32,7 @@ it('Connects to the correct database and created models/collections exist', asyn
     expect(modelInstanceCount).toBe(7);
 });
 
-it('Correctly adds documents to an existing collection', async () => {
+it('Adds test document to "instrument" collection', async () => {
     async function isNewInstrumentInCollection(shouldAddInstrument) {
         if (shouldAddInstrument) {
             const newInstrument = new Instrument({
@@ -45,16 +45,25 @@ it('Correctly adds documents to an existing collection', async () => {
         return !!instrumentInCollection;
     }
 
-    async function isDeletedInstrumentStillInCollection() {
-        await Instrument.findOneAndDelete({ type: 'Test' });
+    expect(await isNewInstrumentInCollection(false)).toBe(false);
+    expect(await isNewInstrumentInCollection(true)).toBe(true);
+});
 
+test('"instruments" collection should now contain 5 documents', async () => {
+    expect(await Instrument.countDocuments({}).exec()).toBe(5);
+});
+
+it('Removes the test document previously added', async () => {
+    await Instrument.findOneAndDelete({ type: 'Test' });
+
+    async function isDeletedInstrumentStillInCollection() {
         const instrumentInCollection = await Instrument.findOne({ type: 'Test' });
         return !!instrumentInCollection;
     }
 
-    expect(await isNewInstrumentInCollection(false)).toBe(false);
-    expect(await isNewInstrumentInCollection(true)).toBe(true);
-    expect(await Instrument.countDocuments({}).exec()).toBe(5);
     expect(await isDeletedInstrumentStillInCollection()).toBe(false);
+});
+
+test('"instruments" collection should now be back to 4 documents after previous deletion', async () => {
     expect(await Instrument.countDocuments({}).exec()).toBe(4);
 });

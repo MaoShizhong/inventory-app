@@ -1,0 +1,11 @@
+extends ../layout 
+
+block content
+    main(class="py-4 px-2 text-center") 
+        button(class="border border-black p-2 rounded-md mt-2")  
+            a Add Instrument Type
+        h2(class="text-3xl font-bold my-4")= title 
+        ul(class="text-lg") 
+            each instrument in allInstruments
+                li(class="hover:text-slate-500 my-2")
+                    a(href=instrument.url)= instrument.type

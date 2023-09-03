@@ -32,6 +32,6 @@ ModelInstanceSchema.virtual('price').get(function () {
     });
 });
 ModelInstanceSchema.virtual('url').get(function () {
-    return `/inventory/model/${this._id}`;
+    return `/inventory/instock/${this._id}`;
 });
 exports.ModelInstance = (0, mongoose_1.model)('ModelInstance', ModelInstanceSchema);

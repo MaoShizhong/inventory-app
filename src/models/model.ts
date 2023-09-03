@@ -17,7 +17,7 @@ const ModelSchema = new Schema<Model>({
 });
 
 ModelSchema.virtual('url').get(function (): string {
-    return `/inventory/model/${this._id}`;
+    return `/inventory/models/${this._id}`;
 });
 
 export const Model = model<Model>('Model', ModelSchema);

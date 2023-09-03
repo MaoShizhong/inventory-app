@@ -1,8 +1,8 @@
-import express, { Request, Response } from 'express';
+import { Router as expressRouter, Request, Response } from 'express';
 
-export const indexRouter = express.Router();
+export const indexRouter = expressRouter();
 
 /* GET home page. */
 indexRouter.get('/', (req: Request, res: Response): void => {
-    res.render('index', { title: 'Express' });
+    res.redirect('/inventory');
 });

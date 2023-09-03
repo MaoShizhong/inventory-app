@@ -5,16 +5,25 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import compression from 'compression';
 import helmet from 'helmet';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+
+import { indexRouter } from './routes/index';
+import { inventoryRouter } from './routes/inventory';
 
 interface Error {
     status?: number;
     message?: string;
 }
 
-import { indexRouter } from './routes/index';
-import { usersRouter } from './routes/users';
-
 const app = express();
+
+// Set up mongoose connection
+dotenv.config();
+mongoose.set('strictQuery', false);
+
+const main = async () => await mongoose.connect(process.env.CONNECTION_STRING!);
+main().catch((err): void => console.error(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,7 +38,7 @@ app.use(helmet());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/inventory', inventoryRouter);
 
 // catch 404 and forward to error handler
 app.use((req: Request, res: Response, next: NextFunction): void => {

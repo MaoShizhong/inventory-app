@@ -10,7 +10,7 @@ type ModelInstance = {
 };
 
 const ModelInstanceSchema = new Schema<ModelInstance>({
-    model: { type: Schema.Types.ObjectId, ref: 'Model', required: true },
+    model: { type: Schema.Types.ObjectId, ref: Model, required: true },
     serial: { type: String, required: true },
     colour: String,
     material: String,

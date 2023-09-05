@@ -1,0 +1,24 @@
+extends ../layout 
+
+block content 
+    main.flex.flex-col.items-center.p-4
+        h1.text-3xl.font-bold= title 
+        div 
+            button.m-4: a Edit Name
+            button.m-4: a Delete Instrument
+
+        p.pb-2 #[strong In stock:]  #{instrumentsInStock.length}
+
+        div(class="grid gap-2 w-4/5")
+            each instrument in instrumentsInStock 
+                a(href=instrument.url class="hover:bg-slate-200")
+                    button.border.border-slate-500.rounded-lg.p-2.w-full.h-full
+                        h2.font-bold.text-center.text-lg #{instrument.model.manufacturer.name} - #{instrument.model.name}
+                        p #[strong Serial:] #{instrument.serial}
+                        p #[strong Condition:] #{instrument.condition}
+                        if instrument.colour 
+                            p #[strong Colour:] #{instrument.colour}
+                        if instrument.material
+                            p #[strong Material:] #{instrument.material}
+            else 
+                p.text-center None of these instruments currently in stock!

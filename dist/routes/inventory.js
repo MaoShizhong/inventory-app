@@ -34,16 +34,18 @@ exports.inventoryRouter = (0, express_1.Router)();
 // Home
 exports.inventoryRouter.get('/', inventory_controller_1.index);
 /*
-    [] Instruments
+    - Instruments
 */
 // GET list of all instrument types
-exports.inventoryRouter.get('/instruments', instrumentController.allInstruments_Get);
+exports.inventoryRouter.get('/instruments', instrumentController.allInstruments_get);
+// GET individual instrument detail page
+exports.inventoryRouter.get('/instruments/:id', instrumentController.instrumentDetail_get);
 /*
-    [] Manufacturers
+    - Manufacturers
 */
 /*
-    [] Models
+    - Models
 */
 /*
-    [] Model Instances
+    - Model Instances
 */

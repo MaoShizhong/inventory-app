@@ -14,12 +14,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.index = void 0;
 const instrument_1 = require("../models/instrument");
-const model_1 = require("../models/model");
+const model_instance_1 = require("../models/model_instance");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 exports.index = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // Get details of books, book instances, authors and genre counts (in parallel)
     const [inStockCount, instrumentTypeCount] = yield Promise.all([
-        model_1.Model.countDocuments({}).exec(),
+        model_instance_1.ModelInstance.countDocuments({}).exec(),
         instrument_1.Instrument.countDocuments({}).exec(),
     ]);
     res.render('index', {

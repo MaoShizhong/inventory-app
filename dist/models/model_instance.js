@@ -13,7 +13,7 @@ exports.ModelInstance = void 0;
 const mongoose_1 = require("mongoose");
 const model_1 = require("./model");
 const ModelInstanceSchema = new mongoose_1.Schema({
-    model: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Model', required: true },
+    model: { type: mongoose_1.Schema.Types.ObjectId, ref: model_1.Model, required: true },
     serial: { type: String, required: true },
     colour: String,
     material: String,

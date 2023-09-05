@@ -1,4 +1,5 @@
 import { Schema, Types, model } from 'mongoose';
+import { Manufacturer } from './manufacturer';
 
 type Model = {
     instrument: Types.ObjectId;
@@ -10,7 +11,7 @@ type Model = {
 
 const ModelSchema = new Schema<Model>({
     instrument: { type: Schema.Types.ObjectId, ref: 'Instrument', required: true },
-    manufacturer: { type: Schema.Types.ObjectId, ref: 'Manufacturer', required: true },
+    manufacturer: { type: Schema.Types.ObjectId, ref: Manufacturer, required: true },
     name: { type: String, min: 1, required: true },
     description: [String],
     basePrice: { type: Number, required: true },

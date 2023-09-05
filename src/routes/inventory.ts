@@ -12,20 +12,23 @@ export const inventoryRouter = Router();
 inventoryRouter.get('/', index);
 
 /*
-    [] Instruments
+    - Instruments
 */
 
 // GET list of all instrument types
-inventoryRouter.get('/instruments', instrumentController.allInstruments_Get);
+inventoryRouter.get('/instruments', instrumentController.allInstruments_get);
+
+// GET individual instrument detail page
+inventoryRouter.get('/instruments/:id', instrumentController.instrumentDetail_get);
 
 /* 
-    [] Manufacturers
+    - Manufacturers
 */
 
 /*
-    [] Models
+    - Models
 */
 
 /* 
-    [] Model Instances
+    - Model Instances
 */

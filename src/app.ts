@@ -11,9 +11,10 @@ import mongoose from 'mongoose';
 import { indexRouter } from './routes/index';
 import { inventoryRouter } from './routes/inventory';
 
-interface Error {
-    status?: number;
-    message?: string;
+declare global {
+    interface Error {
+        status?: number;
+    }
 }
 
 const app = express();

@@ -23,11 +23,12 @@ const ModelInstanceSchema = new Schema<ModelInstance>({
 });
 
 // Change price based on instrument condition
-ModelInstanceSchema.virtual('price').get(async function (): Promise<number> {
-    const model = await Model.findById(this.model);
-
-    return this.condition === 'Refurbished' ? model!.basePrice * 0.85 : model!.basePrice;
-});
+// ModelInstanceSchema.virtual('price').get(async function (): Promise<number> {
+//     const model = await Model.findById(this.model);
+//     const price = this.condition === 'Refurbished' ? model!.basePrice * 0.85 : model!.basePrice;
+//     console.log(price);
+//     return price;
+// });
 
 ModelInstanceSchema.virtual('url').get(function (): string {
     return `/inventory/instock/${this._id}`;

@@ -17,6 +17,7 @@ const express_async_handler_1 = __importDefault(require("express-async-handler")
 const instrument_1 = require("../models/instrument");
 const model_1 = require("../models/model");
 const model_instance_1 = require("../models/model_instance");
+const mongoose_1 = require("mongoose");
 // List all instrument types
 exports.allInstruments_get = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const allInstruments = yield instrument_1.Instrument.find().exec();
@@ -25,22 +26,21 @@ exports.allInstruments_get = (0, express_async_handler_1.default)((req, res) => 
         allInstruments: allInstruments,
     });
 }));
-// Get instrument details page containing list of in-stock instances
-exports.instrumentDetail_get = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+// Get list of all instruments in stock for that type
+exports.instrumentDetail_get = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    if (!mongoose_1.Types.ObjectId.isValid(req.params.id)) {
+        return res.render('404', { request: 'Instrument type' });
+    }
     // Fetch instrument and models of that instrument (models for use in instance search later)
     const [instrument, modelsInStock] = yield Promise.all([
         instrument_1.Instrument.findById(req.params.id).exec(),
         model_1.Model.find({ instrument: req.params.id }).exec(),
     ]);
     if (!instrument) {
-        const err = new Error('Instrument type not found!');
-        err.status = 404;
-        return next(err);
+        return res.render('404', { request: 'Instrument type' });
     }
     // Can only search for model instances after first retrieving the right models as above
-    const instrumentsInStock = yield model_instance_1.ModelInstance.find({
-        model: { $in: modelsInStock },
-    })
+    const instrumentsInStock = yield model_instance_1.ModelInstance.find({ model: { $in: modelsInStock } })
         .populate({
         path: 'model',
         populate: {

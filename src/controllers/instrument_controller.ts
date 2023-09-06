@@ -1,8 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { Instrument } from '../models/instrument';
 import { Model } from '../models/model';
 import { ModelInstance } from '../models/model_instance';
+import { Types } from 'mongoose';
 
 // List all instrument types
 export const allInstruments_get = asyncHandler(
@@ -16,9 +17,13 @@ export const allInstruments_get = asyncHandler(
     }
 );
 
-// Get instrument details page containing list of in-stock instances
+// Get list of all instruments in stock for that type
 export const instrumentDetail_get = asyncHandler(
-    async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    async (req: Request, res: Response): Promise<void> => {
+        if (!Types.ObjectId.isValid(req.params.id)) {
+            return res.render('404', { request: 'Instrument type' });
+        }
+
         // Fetch instrument and models of that instrument (models for use in instance search later)
         const [instrument, modelsInStock] = await Promise.all([
             Instrument.findById(req.params.id).exec(),
@@ -26,15 +31,11 @@ export const instrumentDetail_get = asyncHandler(
         ]);
 
         if (!instrument) {
-            const err = new Error('Instrument type not found!');
-            err.status = 404;
-            return next(err);
+            return res.render('404', { request: 'Instrument type' });
         }
 
         // Can only search for model instances after first retrieving the right models as above
-        const instrumentsInStock = await ModelInstance.find({
-            model: { $in: modelsInStock },
-        })
+        const instrumentsInStock = await ModelInstance.find({ model: { $in: modelsInStock } })
             .populate({
                 path: 'model',
                 populate: {

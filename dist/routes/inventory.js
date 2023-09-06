@@ -25,8 +25,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.inventoryRouter = void 0;
 const instrumentController = __importStar(require("../controllers/instrument_controller"));
-// import * as manufacturerController from '../controllers/manufacturer_controller';
-// import * as modelController from '../controllers/model_controller';
+const manufacturerController = __importStar(require("../controllers/manufacturer_controller"));
+const modelController = __importStar(require("../controllers/model_controller"));
 // import * as modelInstanceController from '../controllers/modelinstance_controller';
 const inventory_controller_1 = require("../controllers/inventory_controller");
 const express_1 = require("express");
@@ -43,9 +43,17 @@ exports.inventoryRouter.get('/instruments/:id', instrumentController.instrumentD
 /*
     - Manufacturers
 */
+// GET list of all manufacturers
+exports.inventoryRouter.get('/manufacturers', manufacturerController.allManufacturers_get);
+// GET list of all in stock instruments from manufacturer
+exports.inventoryRouter.get('/manufacturers/:id', manufacturerController.manufacturerDetail_get);
 /*
     - Models
 */
+// GET list of all models
+exports.inventoryRouter.get('/models', modelController.allModels_get);
+// GET list of all in stock instruments of model
+exports.inventoryRouter.get('/models/:id', modelController.modelDetail_get);
 /*
     - Model Instances
 */

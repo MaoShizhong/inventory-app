@@ -5,16 +5,17 @@ block content
         h1.text-3xl.font-bold= title 
         div 
             button.m-4: a Edit Name
-            button.m-4: a Delete Instrument
+            button.m-4: a Delete Manufacturer
 
         p.pb-2 #[strong In stock:]  #{instrumentsInStock.length}
 
+        //- div(class="grid gap-2 max-w-[80%] sm:grid-flow-col sm:auto-cols-auto sm:auto-rows-auto place-items-center")
         div(class="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4  gap-4")
             each instrument in instrumentsInStock 
                 a(href=instrument.url class="hover:bg-slate-200 w-[85vw] sm:max-w-xs")
-                    button(class="border border-slate-500 rounded-lg p-2 w-full h-full")
-                        h2(class="font-bold text-center text-lg") #{instrument.model.manufacturer.name} - #{instrument.model.name}
-                        p #[strong Serial:] #{instrument.serial}
+                    button(class="border border-slate-500 rounded-lg p-2 w-full min-h-[150px]")
+                        h2(class="text-center text-lg") #[strong #{instrument.model.name}] - #{instrument.serial}
+                        p #[strong Category:] #{instrument.model.instrument.type}
                         p #[strong Condition:] #{instrument.condition}
                         if instrument.colour 
                             p #[strong Colour:] #{instrument.colour}

@@ -11,7 +11,7 @@ block content
                     each model in allModels
                         if model.instrument.name === instrument.name
                             li(class="my-2 text-lg font-normal hover:text-slate-500")
-                                a(href=model.url)= model.name
+                                a(href=model.url) #[b #{model.manufacturer.name}] #{model.name}
         else
             h2(class="my-4 text-3xl font-bold") All #{categoryName}s
             ul(class="text-lg") 

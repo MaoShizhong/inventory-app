@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 
 type Instrument = {
     name: string;
+    url: string;
 };
 
 const InstrumentSchema = new Schema<Instrument>({

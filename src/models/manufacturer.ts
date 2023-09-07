@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 
 type Manufacturer = {
     name: string;
+    url: string;
 };
 
 const ManufacturerSchema = new Schema<Manufacturer>({

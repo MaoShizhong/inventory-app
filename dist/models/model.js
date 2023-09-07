@@ -7,7 +7,7 @@ const ModelSchema = new mongoose_1.Schema({
     instrument: { type: mongoose_1.Schema.Types.ObjectId, ref: 'Instrument', required: true },
     manufacturer: { type: mongoose_1.Schema.Types.ObjectId, ref: manufacturer_1.Manufacturer, required: true },
     name: { type: String, min: 1, required: true },
-    description: [String],
+    description: { type: [String], default: undefined },
     basePrice: { type: Number, required: true },
 });
 ModelSchema.virtual('url').get(function () {

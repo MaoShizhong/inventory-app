@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+    h2(class="my-4 text-2xl font-bold text-center")= formTitle
+
+    form(method="POST" action="" class="w-[min(85vw,800px)] mx-auto flex flex-col gap-2")
+        label(class="flex flex-col") Instrument (required):
+            select(name="instrument" required class="p-1 bg-transparent border rounded-md border-slate-600")
+                unless model
+                    option(disabled selected hidden value='') Select an instrument
+                each instrumentType in instrumentTypes
+                    option(value=instrumentType.name selected=(model && model.instrument.toString() === instrumentType._id.toString()))= instrumentType.name
+
+        label(class="flex flex-col") Manufacturer (required):
+            select(name="manufacturer" required class="p-1 bg-transparent border rounded-md border-slate-600")
+                unless model
+                    option(disabled selected hidden value='') Select a manufacturer
+                each manufacturer in manufacturers
+                    option(value=manufacturer.name selected=(model && model.manufacturer.toString() === manufacturer._id.toString()))= manufacturer.name
+
+        label(class="flex flex-col") Name (required):
+            input(type="text" placeholder="Name" name="name" value=(model && model.name) required class="p-1 border rounded-md border-slate-600")
+
+        label(class="flex flex-col") Description
+            textarea(placeholder="Description" name="description" rows=5 class="p-1 border rounded-md border-slate-600") #{model && model.description.join('\n\n')}
+
+        label(class="flex flex-col") Base price (required):
+            div(class="flex items-center gap-1") £
+                input(type="number" placeholder="Base price" name="baseprice" value=(model && model.basePrice) required class="flex-1 p-1 border rounded-md border-slate-600")
+
+        div(class="flex justify-between my-4")
+            button(class="px-2 py-1 border rounded-md border-slate-600"): a(href=(model ? model.url : "/inventory/models")) Cancel
+            button(type="submit" class="px-2 py-1 border rounded-md border-slate-600") Submit
+
+    if errors
+        ul(class="text-center")
+            for error in errors
+                li= error.msg

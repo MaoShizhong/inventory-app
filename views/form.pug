@@ -1,0 +1,14 @@
+extends layout 
+
+block content 
+    h2(class="my-4 text-2xl font-bold text-center")= formTitle
+    form(method="POST" action="" class="w-[min(85vw,800px)] mx-auto")
+        block inputs
+        div(class="flex justify-between my-4")
+            button(class="px-2 py-1 border rounded-md border-slate-600"): a(href=(instrument ? instrument.url : "/inventory/instruments")) Cancel    
+            button(type="submit" class="px-2 py-1 border rounded-md border-slate-600") Add
+
+    if errors
+        ul(class="text-center") 
+            for error in errors     
+                li= error.msg

@@ -7,6 +7,7 @@ type ModelInstance = {
     colour?: string;
     material?: string;
     condition: 'New' | 'Refurbished';
+    url: string;
 };
 
 const ModelInstanceSchema = new Schema<ModelInstance>({

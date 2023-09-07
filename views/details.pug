@@ -1,15 +1,49 @@
-extends layout 
+extends layout
 
-block content 
-    main(class="flex flex-col items-center p-4")
-        h1(class="text-3xl") #[strong #{category.name}]
-            if isModelPage 
+block content
+    main(class="flex flex-col items-center p-4 text-center")
+        h1(class="my-2 text-3xl") #[b #{isModelPage && category.manufacturer.name + ' '}#{category.name}]
+            if isModelPage
                 |  - #{category.instrument.name}
-        div(class="flex justify-center gap-8 m-4") 
+
+        if isModelPage
+            div(class="my-2 w-[min(90vw,800px)]")
+                each paragraph in category.description
+                    p(class="my-2 text-sm sm:text-base")= paragraph
+
+        div(class="flex justify-center gap-8 m-4")
             button(class="px-4 py-2 border rounded-md border-slate-600"): a(href=`${category.url}/update`) Edit #{editBtnText}
             button(class="px-4 py-2 border rounded-md border-slate-600"): a(href=`${category.url}/delete`) Delete #{deleteBtnText}
 
-        p(class="pb-2") #[strong In stock:]  #{instrumentsInStock.length}
+        if cannotDeleteEntry
+            if isModelPage
+                p(class="text-xl text-red-800"): strong Can only delete if no instruments of this model in stock!
+            else
+                p(class="text-xl text-red-800"): strong Can only delete if no stored models are #{isInstrumentPage ? 'of this instrument type' : 'from this manufacturer'}!
+                p(class="text-xl text-red-800"): strong Please delete any models using this #{isInstrumentPage ? 'instrument type' : 'manufacturer'}.
+
+        p(class="py-2") #[b In stock:]  #{instrumentsInStock.length}
 
         div(class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4")
-            block inStockList
+            each instrument in instrumentsInStock
+                -
+                    const price = instrument.condition === 'Refurbished'
+                        ? instrument.model.basePrice * 0.85
+                        : instrument.model.basePrice;
+                    const priceAsCurrency =
+                        price.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'});
+
+                a(href=instrument.url class="min-h-[150px] w-[85vw] sm:max-w-[300px]")
+                    button(class="w-full h-full p-2 border rounded-lg border-slate-500 hover:bg-slate-200")
+                        unless isModelPage
+                            h2(class="text-lg font-bold") #{isInstrumentPage ? instrument.model.manufacturer.name : instrument.model.instrument.name} - #{instrument.model.name}
+                        p #[b Serial:] #{instrument.serial}
+                        p #[b Condition:] #{instrument.condition}
+                        if instrument.colour
+                            p #[b Colour:] #{instrument.colour}
+                        if instrument.material
+                            p #[b Material:] #{instrument.material}
+                        p #[b Price:] #{priceAsCurrency}
+
+            else
+                p(class=" col-span-full") None of these instruments currently in stock!

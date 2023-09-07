@@ -12,9 +12,12 @@ export const allModels_get = asyncHandler(async (req: Request, res: Response): P
         Instrument.find().exec(),
     ]);
 
-    res.render('models/all_models', {
+    res.render('list_all', {
+        currentPath: 'models',
+        categoryName: 'Model',
         allModels: allModels,
         instrumentTypes: allInstrumentTypes,
+        isListOfModels: true,
     });
 });
 
@@ -39,8 +42,11 @@ export const modelDetail_get = asyncHandler(async (req: Request, res: Response):
         })
         .exec();
 
-    res.render('models/model_detail', {
-        model: model,
+    res.render('details/model_detail', {
+        category: model,
+        isModelPage: true,
+        editBtnText: 'Model',
+        deleteBtnText: 'Model',
         instrumentsInStock: instrumentsInStock,
     });
 });

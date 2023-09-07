@@ -1,0 +1,15 @@
+extends layout 
+
+block content 
+    main(class="flex flex-col items-center p-4")
+        h1(class="text-3xl") #[strong #{category.name}]
+            if isModelPage 
+                |  - #{category.instrument.name}
+        div(class="flex justify-center gap-8 m-4") 
+            button(class="px-4 py-2 border rounded-md border-slate-600"): a(href=`${category.url}/update`) Edit #{editBtnText}
+            button(class="px-4 py-2 border rounded-md border-slate-600"): a(href=`${category.url}/delete`) Delete #{deleteBtnText}
+
+        p(class="pb-2") #[strong In stock:]  #{instrumentsInStock.length}
+
+        div(class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4")
+            block inStockList

@@ -21,9 +21,10 @@ const mongoose_1 = require("mongoose");
 // List all instrument types
 exports.allInstruments_get = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const allInstruments = yield instrument_1.Instrument.find().exec();
-    res.render('instruments/all_instrument_types', {
-        title: 'All Instrument Types:',
-        allInstruments: allInstruments,
+    res.render('list_all', {
+        currentPath: 'instruments',
+        categoryName: 'Instrument Type',
+        categoryEntries: allInstruments,
     });
 }));
 // Get list of all instruments in stock for that type
@@ -48,8 +49,10 @@ exports.instrumentDetail_get = (0, express_async_handler_1.default)((req, res) =
         },
     })
         .exec();
-    res.render('instruments/instrument_detail', {
-        title: instrument.type,
+    res.render('details/instrument_detail', {
+        category: instrument,
+        editBtnText: 'Name',
+        deleteBtnText: 'Instrument',
         instrumentsInStock: instrumentsInStock,
     });
 }));

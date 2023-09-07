@@ -10,9 +10,10 @@ export const allManufacturers_get = asyncHandler(
     async (req: Request, res: Response): Promise<void> => {
         const allManufacturers = await Manufacturer.find().exec();
 
-        res.render('manufacturers/all_manufacturers', {
-            title: 'All Manufacturers:',
-            allManufacturers: allManufacturers,
+        res.render('list_all', {
+            currentPath: 'manufacturers',
+            categoryName: 'Manufacturer',
+            categoryEntries: allManufacturers,
         });
     }
 );
@@ -48,8 +49,10 @@ export const manufacturerDetail_get = asyncHandler(
             })
             .exec();
 
-        res.render('manufacturers/manufacturer_detail', {
-            title: manufacturer.name,
+        res.render('details/manufacturer_detail', {
+            category: manufacturer,
+            editBtnText: 'Name',
+            deleteBtnText: 'Manufacturer',
             instrumentsInStock: instrumentsInStock,
         });
     }

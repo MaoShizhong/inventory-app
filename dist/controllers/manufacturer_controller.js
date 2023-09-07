@@ -21,9 +21,10 @@ const manufacturer_1 = require("../models/manufacturer");
 // List all instrument types
 exports.allManufacturers_get = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const allManufacturers = yield manufacturer_1.Manufacturer.find().exec();
-    res.render('manufacturers/all_manufacturers', {
-        title: 'All Manufacturers:',
-        allManufacturers: allManufacturers,
+    res.render('list_all', {
+        currentPath: 'manufacturers',
+        categoryName: 'Manufacturer',
+        categoryEntries: allManufacturers,
     });
 }));
 // Get list of all instruments in stock for that type
@@ -52,8 +53,10 @@ exports.manufacturerDetail_get = (0, express_async_handler_1.default)((req, res)
         },
     })
         .exec();
-    res.render('manufacturers/manufacturer_detail', {
-        title: manufacturer.name,
+    res.render('details/manufacturer_detail', {
+        category: manufacturer,
+        editBtnText: 'Name',
+        deleteBtnText: 'Manufacturer',
         instrumentsInStock: instrumentsInStock,
     });
 }));

@@ -10,9 +10,10 @@ export const allInstruments_get = asyncHandler(
     async (req: Request, res: Response): Promise<void> => {
         const allInstruments = await Instrument.find().exec();
 
-        res.render('instruments/all_instrument_types', {
-            title: 'All Instrument Types:',
-            allInstruments: allInstruments,
+        res.render('list_all', {
+            currentPath: 'instruments',
+            categoryName: 'Instrument Type',
+            categoryEntries: allInstruments,
         });
     }
 );
@@ -44,8 +45,10 @@ export const instrumentDetail_get = asyncHandler(
             })
             .exec();
 
-        res.render('instruments/instrument_detail', {
-            title: instrument.type,
+        res.render('details/instrument_detail', {
+            category: instrument,
+            editBtnText: 'Name',
+            deleteBtnText: 'Instrument',
             instrumentsInStock: instrumentsInStock,
         });
     }

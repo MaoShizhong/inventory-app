@@ -22,7 +22,6 @@ export const allManufacturers_get = asyncHandler(
 // Form for adding a manufacturer
 export const manufacturerForm_get = (req: Request, res: Response): void => {
     res.render('forms/manufacturer_form', {
-        page: 'Add manufacturer',
         formTitle: 'Add manufacturer',
     });
 };
@@ -38,7 +37,6 @@ export const createNewManufacturer: FormPOSTHandler = [
 
         if (!errors.isEmpty()) {
             res.render('forms/manufacturer_form', {
-                page: 'Add manufacturer',
                 instrument: newManufacturer,
                 errors: errors.array(),
             });
@@ -84,7 +82,7 @@ export const deleteManufacturer = asyncHandler(
 
             res.render('details', {
                 cannotDeleteEntry: true,
-                page: manufacturer.name,
+
                 category: manufacturer,
                 editBtnText: 'Name',
                 deleteBtnText: 'Manufacturer',
@@ -101,7 +99,7 @@ export const deleteManufacturer = asyncHandler(
 // Get list of all instruments in stock for that type
 export const manufacturerDetail_get = asyncHandler(
     async (req: Request, res: Response): Promise<void> => {
-        /*  
+        /*
             Required here otherwise invalid ObjectID error is thrown during querying and
             before the following conditional can run.
         */
@@ -130,7 +128,6 @@ export const manufacturerDetail_get = asyncHandler(
             .exec();
 
         res.render('details', {
-            page: manufacturer.name,
             category: manufacturer,
             editBtnText: 'Name',
             deleteBtnText: 'Manufacturer',
@@ -155,7 +152,6 @@ export const updateManufacturer_get = asyncHandler(
         }
 
         res.render('forms/manufacturer_form', {
-            page: `Edit ${manufacturer.name}`,
             formTitle: `Edit ${manufacturer.name}`,
             manufacturer: manufacturer,
         });
@@ -177,7 +173,6 @@ export const updateManufacturer_post: FormPOSTHandler = [
 
         if (!errors.isEmpty()) {
             res.render('forms/manufacturer_form', {
-                page: `Edit ${oldManufacturer!.name}`,
                 formTitle: `Edit ${oldManufacturer!.name}`,
                 manufacturer: manufacturer,
                 errors: errors.array(),
@@ -190,7 +185,6 @@ export const updateManufacturer_post: FormPOSTHandler = [
 
         if (manufacturerExists) {
             res.render('forms/manufacturer_form', {
-                page: `Edit ${oldManufacturer!.name}`,
                 formTitle: `Edit ${oldManufacturer!.name}`,
                 manufacturer: manufacturer,
                 errors: [

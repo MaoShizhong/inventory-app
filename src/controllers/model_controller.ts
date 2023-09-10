@@ -19,7 +19,6 @@ export const allModels_get = asyncHandler(async (req: Request, res: Response): P
     ]);
 
     res.render('list_all', {
-        page: 'Models',
         currentPath: 'models',
         categoryName: 'Model',
         allModels: allModels,
@@ -36,7 +35,6 @@ export const modelForm_get = asyncHandler(async (req: Request, res: Response): P
     ]);
 
     res.render('forms/model_form', {
-        page: 'Add model',
         formTitle: 'Add model',
         instrumentTypes: instruments,
         manufacturers: manufacturers,
@@ -73,7 +71,6 @@ export const createNewModel: FormPOSTHandler = [
 
         if (!errors.isEmpty()) {
             res.render('forms/model_form', {
-                page: 'Add model',
                 model: newModel,
                 errors: errors.array(),
             });
@@ -152,7 +149,7 @@ export const deleteModel = asyncHandler(async (req: Request, res: Response): Pro
         res.render('details', {
             cannotDeleteEntry: true,
             isModelPage: true,
-            page: model.name,
+
             category: model,
             editBtnText: 'Name',
             deleteBtnText: 'Model',
@@ -184,7 +181,6 @@ export const updateModel_get = asyncHandler(async (req: Request, res: Response):
     }
 
     res.render('forms/model_form', {
-        page: `Edit ${model.name}`,
         formTitle: `Edit ${model.name}`,
         model: model,
         instrumentTypes: instrumentTypes,
@@ -227,7 +223,6 @@ export const updateModel_post: FormPOSTHandler = [
 
         if (!errors.isEmpty()) {
             res.render('forms/model_form', {
-                page: `Edit ${model.name}`,
                 model: model,
                 instrumentTypes: instrumentTypes,
                 manufacturers: manufacturers,
@@ -245,7 +240,6 @@ export const updateModel_post: FormPOSTHandler = [
 
         if (duplicateModel) {
             res.render('forms/model_form', {
-                page: `Edit ${oldModel!.name}`,
                 formTitle: `Edit ${oldModel!.name}`,
                 model: model,
                 instrumentTypes: instrumentTypes,

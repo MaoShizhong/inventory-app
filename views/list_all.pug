@@ -1,9 +1,8 @@
-extends layout 
+extends layout
 
 block content
-    main(class="px-2 py-4 text-center") 
-        button(class="p-2 mt-2 border border-black rounded-md")  
-            a(href=`${currentPath}/create`) Add #{categoryName}
+    main(class="px-2 py-4 text-center")
+        a(href=`${currentPath}/create` class="mt-2"): button(class="p-2 border border-black rounded-md") Add #{categoryName}
 
         if isListOfModels
             each instrument in instrumentTypes
@@ -14,7 +13,7 @@ block content
                                 a(href=model.url) #[b #{model.manufacturer.name}] #{model.name}
         else
             h2(class="my-4 text-3xl font-bold") All #{categoryName}s
-            ul(class="text-lg") 
+            ul(class="text-lg")
                 each entry in categoryEntries
                     li(class="my-2 hover:text-slate-500")
                         a(href=entry.url)= entry.name

@@ -29,7 +29,7 @@ block content
                 input(type="number" placeholder="Base price" name="baseprice" value=(model && model.basePrice) required class="flex-1 p-1 border rounded-md border-slate-600")
 
         div(class="flex justify-between my-4")
-            button(class="px-2 py-1 border rounded-md border-slate-600"): a(href=(model ? model.url : "/inventory/models")) Cancel
+            button(type="button" class="px-2 py-1 border rounded-md border-slate-600"): a(href=(model ? model.url : "/inventory/models")) Cancel
             button(type="submit" class="px-2 py-1 border rounded-md border-slate-600") Submit
 
     if errors

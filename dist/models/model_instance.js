@@ -15,13 +15,6 @@ const ModelInstanceSchema = new mongoose_1.Schema({
         default: 'New',
     },
 });
-// Change price based on instrument condition
-// ModelInstanceSchema.virtual('price').get(async function (): Promise<number> {
-//     const model = await Model.findById(this.model);
-//     const price = this.condition === 'Refurbished' ? model!.basePrice * 0.85 : model!.basePrice;
-//     console.log(price);
-//     return price;
-// });
 ModelInstanceSchema.virtual('url').get(function () {
     return `/inventory/instock/${this._id}`;
 });

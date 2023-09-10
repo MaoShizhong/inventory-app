@@ -1,7 +1,7 @@
 import * as instrumentController from '../controllers/instrument_controller';
 import * as manufacturerController from '../controllers/manufacturer_controller';
 import * as modelController from '../controllers/model_controller';
-// import * as modelInstanceController from '../controllers/modelinstance_controller';
+import * as modelInstanceController from '../controllers/modelinstance_controller';
 
 import { index } from '../controllers/inventory_controller';
 import { Router } from 'express';
@@ -101,3 +101,21 @@ inventoryRouter.post('/models/:id/update', modelController.updateModel_post);
 /*
     - Model Instances
 */
+
+// GET form for adding instrument instance to stock
+inventoryRouter.get('/addstock', modelInstanceController.instanceForm_get);
+
+// POST submitting new stock form
+inventoryRouter.post('/addstock', modelInstanceController.instanceForm_post);
+
+// GET indivial insstrument instance details page
+inventoryRouter.get('/instock/:id', modelInstanceController.instanceDetails_get);
+
+// Handle removing instance from stock
+inventoryRouter.get('/instock/:id/delete', modelInstanceController.removeFromStock);
+
+// GET form for editing model
+inventoryRouter.get('/instock/:id/update', modelInstanceController.updateInstance_get);
+
+// POST form for editing model
+inventoryRouter.post('/instock/:id/update', modelInstanceController.updateInstance_post);

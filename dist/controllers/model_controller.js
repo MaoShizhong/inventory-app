@@ -31,7 +31,6 @@ exports.allModels_get = (0, express_async_handler_1.default)((req, res) => __awa
         instrument_1.Instrument.find().sort({ name: 1 }).exec(),
     ]);
     res.render('list_all', {
-        page: 'Models',
         currentPath: 'models',
         categoryName: 'Model',
         allModels: allModels,
@@ -46,7 +45,6 @@ exports.modelForm_get = (0, express_async_handler_1.default)((req, res) => __awa
         manufacturer_1.Manufacturer.find().sort({ name: 1 }).exec(),
     ]);
     res.render('forms/model_form', {
-        page: 'Add model',
         formTitle: 'Add model',
         instrumentTypes: instruments,
         manufacturers: manufacturers,
@@ -74,7 +72,6 @@ exports.createNewModel = [
         });
         if (!errors.isEmpty()) {
             res.render('forms/model_form', {
-                page: 'Add model',
                 model: newModel,
                 errors: errors.array(),
             });
@@ -145,7 +142,6 @@ exports.deleteModel = (0, express_async_handler_1.default)((req, res) => __await
         res.render('details', {
             cannotDeleteEntry: true,
             isModelPage: true,
-            page: model.name,
             category: model,
             editBtnText: 'Name',
             deleteBtnText: 'Model',
@@ -174,7 +170,6 @@ exports.updateModel_get = (0, express_async_handler_1.default)((req, res) => __a
         return res.render('404', { request: 'Model' });
     }
     res.render('forms/model_form', {
-        page: `Edit ${model.name}`,
         formTitle: `Edit ${model.name}`,
         model: model,
         instrumentTypes: instrumentTypes,
@@ -207,7 +202,6 @@ exports.updateModel_post = [
         });
         if (!errors.isEmpty()) {
             res.render('forms/model_form', {
-                page: `Edit ${model.name}`,
                 model: model,
                 instrumentTypes: instrumentTypes,
                 manufacturers: manufacturers,
@@ -223,7 +217,6 @@ exports.updateModel_post = [
             .exec();
         if (duplicateModel) {
             res.render('forms/model_form', {
-                page: `Edit ${oldModel.name}`,
                 formTitle: `Edit ${oldModel.name}`,
                 model: model,
                 instrumentTypes: instrumentTypes,

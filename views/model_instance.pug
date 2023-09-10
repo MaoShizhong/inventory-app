@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    -
+        let previousPage;
+        if (cameFrom === 'model') {
+            previousPage = instrument.model.url;
+        } else if (cameFrom === 'instrument') {
+            previousPage = instrument.model.instrument.url;
+        } else {
+            previousPage = instrument.model.manufacturer.url;
+        }
+
+        const price = instrument.condition === 'Refurbished'
+            ? instrument.model.basePrice * 0.85
+            : instrument.model.basePrice;
+        const priceAsCurrency =
+            price.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'});
+
+    main(class="relative flex flex-col items-center p-4 text-center")
+        a(href=previousPage class="absolute top-4 left-4"): button(class="px-2 py-1 border rounded-md border-slate-600") Previous page
+
+        h1(class="my-2 text-3xl font-bold")= instrument.serial
+
+        ul
+            li #[b Type:] #{instrument.model.instrument.name}
+            li #[b Manufacturer:] #{instrument.model.manufacturer.name}
+            li #[b Model:] #{instrument.model.name}
+            if instrument.colour
+                li #[b Colour:] #{instrument.colour}
+            if instrument.material
+                li #[b Material:] #{instrument.material}
+            li #[b Condition:] #{instrument.condition}
+            li #[b Price:] #{priceAsCurrency}
+
+
+        div(class="flex justify-center gap-8 m-4")
+            button(class="px-4 py-2 border rounded-md border-slate-600"): a(href=`${instrument.url}/update`) Edit product
+            button(class="px-4 py-2 border rounded-md border-slate-600"): a(href=`${instrument.url}/delete/?from=${cameFrom}`) Remove from stock
+
+        div(class="my-2 w-[min(90vw,800px)]")
+            each paragraph in instrument.model.description
+                p(class="my-2 text-sm sm:text-base")= paragraph

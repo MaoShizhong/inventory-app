@@ -16,7 +16,6 @@ export const allInstruments_get = asyncHandler(
         const allInstruments = await Instrument.find().sort({ name: 1 }).exec();
 
         res.render('list_all', {
-            page: 'Instruments',
             currentPath: 'instruments',
             categoryName: 'Instrument Type',
             categoryEntries: allInstruments,
@@ -27,7 +26,6 @@ export const allInstruments_get = asyncHandler(
 // Form for adding an instrument type
 export const instrumentForm_get = (req: Request, res: Response): void => {
     res.render('forms/instrument_form', {
-        page: 'Add instrument',
         formTitle: 'Add instrument type',
     });
 };
@@ -43,7 +41,6 @@ export const createNewInstrument: FormPOSTHandler = [
 
         if (!errors.isEmpty()) {
             res.render('forms/instrument_form', {
-                page: 'Add instrument',
                 instrument: newInstrument,
                 errors: errors.array(),
             });
@@ -90,7 +87,6 @@ export const instrumentDetail_get = asyncHandler(
             .exec();
 
         res.render('details', {
-            page: instrumentType.name,
             isInstrumentPage: true,
             category: instrumentType,
             editBtnText: 'Name',
@@ -127,7 +123,7 @@ export const deleteInstrument = asyncHandler(async (req: Request, res: Response)
         res.render('details', {
             cannotDeleteEntry: true,
             isInstrumentPage: true,
-            page: instrumentType.name,
+
             category: instrumentType,
             editBtnText: 'Name',
             deleteBtnText: 'Instrument',
@@ -156,7 +152,6 @@ export const updateInstrument_get = asyncHandler(
         }
 
         res.render('forms/instrument_form', {
-            page: `Edit ${instrument.name}`,
             formTitle: `Edit ${instrument.name}`,
             instrument: instrument,
         });
@@ -178,7 +173,6 @@ export const updateInstrument_post: FormPOSTHandler = [
 
         if (!errors.isEmpty()) {
             res.render('forms/instrument_form', {
-                page: `Edit ${oldInstrument!.name}`,
                 formTitle: `Edit ${oldInstrument!.name}`,
                 instrument: instrument,
                 errors: errors.array(),
@@ -191,7 +185,6 @@ export const updateInstrument_post: FormPOSTHandler = [
 
         if (instrumentExists) {
             res.render('forms/instrument_form', {
-                page: `Edit ${oldInstrument!.name}`,
                 formTitle: `Edit ${oldInstrument!.name}`,
                 instrument: instrument,
                 errors: [

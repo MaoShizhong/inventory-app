@@ -31,7 +31,6 @@ exports.allManufacturers_get = (0, express_async_handler_1.default)((req, res) =
 // Form for adding a manufacturer
 const manufacturerForm_get = (req, res) => {
     res.render('forms/manufacturer_form', {
-        page: 'Add manufacturer',
         formTitle: 'Add manufacturer',
     });
 };
@@ -44,7 +43,6 @@ exports.createNewManufacturer = [
         const newManufacturer = new manufacturer_1.Manufacturer({ name: req.body.name });
         if (!errors.isEmpty()) {
             res.render('forms/manufacturer_form', {
-                page: 'Add manufacturer',
                 instrument: newManufacturer,
                 errors: errors.array(),
             });
@@ -87,7 +85,6 @@ exports.deleteManufacturer = (0, express_async_handler_1.default)((req, res) => 
             .exec();
         res.render('details', {
             cannotDeleteEntry: true,
-            page: manufacturer.name,
             category: manufacturer,
             editBtnText: 'Name',
             deleteBtnText: 'Manufacturer',
@@ -127,7 +124,6 @@ exports.manufacturerDetail_get = (0, express_async_handler_1.default)((req, res)
     })
         .exec();
     res.render('details', {
-        page: manufacturer.name,
         category: manufacturer,
         editBtnText: 'Name',
         deleteBtnText: 'Manufacturer',
@@ -146,7 +142,6 @@ exports.updateManufacturer_get = (0, express_async_handler_1.default)((req, res)
         return res.render('404', { request: 'Manufacturer' });
     }
     res.render('forms/manufacturer_form', {
-        page: `Edit ${manufacturer.name}`,
         formTitle: `Edit ${manufacturer.name}`,
         manufacturer: manufacturer,
     });
@@ -163,7 +158,6 @@ exports.updateManufacturer_post = [
         });
         if (!errors.isEmpty()) {
             res.render('forms/manufacturer_form', {
-                page: `Edit ${oldManufacturer.name}`,
                 formTitle: `Edit ${oldManufacturer.name}`,
                 manufacturer: manufacturer,
                 errors: errors.array(),
@@ -174,7 +168,6 @@ exports.updateManufacturer_post = [
             .exec();
         if (manufacturerExists) {
             res.render('forms/manufacturer_form', {
-                page: `Edit ${oldManufacturer.name}`,
                 formTitle: `Edit ${oldManufacturer.name}`,
                 manufacturer: manufacturer,
                 errors: [

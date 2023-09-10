@@ -1,6 +1,16 @@
 extends layout
 
 block content
+    -
+        let fromQuery;
+        if (isModelPage) {
+            fromQuery = 'model';
+        } else if (isInstrumentPage) {
+            fromQuery = 'instrument';
+        } else {
+            fromQuery = 'manufacturer';
+        }
+
     main(class="flex flex-col items-center p-4 text-center")
         h1(class="my-2 text-3xl") #[b #{isModelPage && category.manufacturer.name + ' '}#{category.name}]
             if isModelPage
@@ -12,8 +22,8 @@ block content
                     p(class="my-2 text-sm sm:text-base")= paragraph
 
         div(class="flex justify-center gap-8 m-4")
-            button(class="px-4 py-2 border rounded-md border-slate-600"): a(href=`${category.url}/update`) Edit #{editBtnText}
-            button(class="px-4 py-2 border rounded-md border-slate-600"): a(href=`${category.url}/delete`) Delete #{deleteBtnText}
+            a(href=`${category.url}/update`): button(class="px-4 py-2 border rounded-md border-slate-600") Edit #{editBtnText}
+            a(href=`${category.url}/delete`): button(class="px-4 py-2 border rounded-md border-slate-600") Delete #{deleteBtnText}
 
         if cannotDeleteEntry
             if isModelPage
@@ -24,6 +34,9 @@ block content
 
         p(class="py-2") #[b In stock:]  #{instrumentsInStock.length}
 
+        if isModelPage
+            a(href=`/inventory/addstock/?model=${category._id}` class="mt-2 mb-4"): button(class="px-4 py-2 border rounded-md border-slate-600") Add to stock
+
         div(class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4")
             each instrument in instrumentsInStock
                 -
@@ -33,7 +46,7 @@ block content
                     const priceAsCurrency =
                         price.toLocaleString('en-GB', {style: 'currency', currency: 'GBP'});
 
-                a(href=instrument.url class="min-h-[150px] w-[85vw] sm:max-w-[300px]")
+                a(href=`${instrument.url}/?from=${fromQuery}` class="min-h-[150px] w-[85vw] sm:max-w-[300px]")
                     button(class="w-full h-full p-2 border rounded-lg border-slate-500 hover:bg-slate-200")
                         unless isModelPage
                             h2(class="text-lg font-bold") #{isInstrumentPage ? instrument.model.manufacturer.name : instrument.model.instrument.name} - #{instrument.model.name}

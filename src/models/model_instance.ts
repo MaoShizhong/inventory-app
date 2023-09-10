@@ -2,6 +2,7 @@ import { Schema, Types, model } from 'mongoose';
 import { Model } from './model';
 
 type ModelInstance = {
+    _id: Types.ObjectId;
     model: Types.ObjectId;
     serial: string;
     colour?: string;
@@ -22,14 +23,6 @@ const ModelInstanceSchema = new Schema<ModelInstance>({
         default: 'New',
     },
 });
-
-// Change price based on instrument condition
-// ModelInstanceSchema.virtual('price').get(async function (): Promise<number> {
-//     const model = await Model.findById(this.model);
-//     const price = this.condition === 'Refurbished' ? model!.basePrice * 0.85 : model!.basePrice;
-//     console.log(price);
-//     return price;
-// });
 
 ModelInstanceSchema.virtual('url').get(function (): string {
     return `/inventory/instock/${this._id}`;

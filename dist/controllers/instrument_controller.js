@@ -23,7 +23,6 @@ const mongoose_1 = require("mongoose");
 exports.allInstruments_get = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const allInstruments = yield instrument_1.Instrument.find().sort({ name: 1 }).exec();
     res.render('list_all', {
-        page: 'Instruments',
         currentPath: 'instruments',
         categoryName: 'Instrument Type',
         categoryEntries: allInstruments,
@@ -32,7 +31,6 @@ exports.allInstruments_get = (0, express_async_handler_1.default)((req, res) => 
 // Form for adding an instrument type
 const instrumentForm_get = (req, res) => {
     res.render('forms/instrument_form', {
-        page: 'Add instrument',
         formTitle: 'Add instrument type',
     });
 };
@@ -45,7 +43,6 @@ exports.createNewInstrument = [
         const newInstrument = new instrument_1.Instrument({ name: req.body.name });
         if (!errors.isEmpty()) {
             res.render('forms/instrument_form', {
-                page: 'Add instrument',
                 instrument: newInstrument,
                 errors: errors.array(),
             });
@@ -87,7 +84,6 @@ exports.instrumentDetail_get = (0, express_async_handler_1.default)((req, res) =
     })
         .exec();
     res.render('details', {
-        page: instrumentType.name,
         isInstrumentPage: true,
         category: instrumentType,
         editBtnText: 'Name',
@@ -120,7 +116,6 @@ exports.deleteInstrument = (0, express_async_handler_1.default)((req, res) => __
         res.render('details', {
             cannotDeleteEntry: true,
             isInstrumentPage: true,
-            page: instrumentType.name,
             category: instrumentType,
             editBtnText: 'Name',
             deleteBtnText: 'Instrument',
@@ -145,7 +140,6 @@ exports.updateInstrument_get = (0, express_async_handler_1.default)((req, res) =
         return res.render('404', { request: 'Instrument type' });
     }
     res.render('forms/instrument_form', {
-        page: `Edit ${instrument.name}`,
         formTitle: `Edit ${instrument.name}`,
         instrument: instrument,
     });
@@ -162,7 +156,6 @@ exports.updateInstrument_post = [
         });
         if (!errors.isEmpty()) {
             res.render('forms/instrument_form', {
-                page: `Edit ${oldInstrument.name}`,
                 formTitle: `Edit ${oldInstrument.name}`,
                 instrument: instrument,
                 errors: errors.array(),
@@ -173,7 +166,6 @@ exports.updateInstrument_post = [
             .exec();
         if (instrumentExists) {
             res.render('forms/instrument_form', {
-                page: `Edit ${oldInstrument.name}`,
                 formTitle: `Edit ${oldInstrument.name}`,
                 instrument: instrument,
                 errors: [

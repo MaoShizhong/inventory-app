@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+    h2(class="my-4 text-2xl font-bold text-center")= formTitle
+
+    form(method="POST" action="" class="w-[min(85vw,800px)] mx-auto flex flex-col gap-2")
+
+
+        label(class="flex flex-col") Serial No. (required):
+            input(type="text" placeholder="Serial no." name="serial" value=(instance && instance.serial) required class="p-1 border rounded-md border-slate-600")
+
+        label(class="flex flex-col") Colour:
+            input(type="text" placeholder="Colour" name="colour" value=(instance && instance.colour) class="p-1 border rounded-md border-slate-600")
+
+        label(class="flex flex-col") Material:
+            input(type="text" placeholder="Material" name="material" value=(instance && instance.material) class="p-1 border rounded-md border-slate-600")
+
+        label(class="flex flex-col") Condition (required):
+            select(name="condition" required class="p-1 bg-transparent border rounded-md border-slate-600")
+                option New
+                option Refurbished
+
+        div(class="flex justify-between my-4")
+            button(type="button" class="px-2 py-1 border rounded-md border-slate-600"): a(href=modelPage) Cancel
+            button(type="submit" class="px-2 py-1 border rounded-md border-slate-600") Submit
+
+    if errors
+        ul(class="text-center")
+            for error in errors
+                li= error.msg

@@ -27,7 +27,7 @@ exports.inventoryRouter = void 0;
 const instrumentController = __importStar(require("../controllers/instrument_controller"));
 const manufacturerController = __importStar(require("../controllers/manufacturer_controller"));
 const modelController = __importStar(require("../controllers/model_controller"));
-// import * as modelInstanceController from '../controllers/modelinstance_controller';
+const modelInstanceController = __importStar(require("../controllers/modelinstance_controller"));
 const inventory_controller_1 = require("../controllers/inventory_controller");
 const express_1 = require("express");
 exports.inventoryRouter = (0, express_1.Router)();
@@ -99,3 +99,15 @@ exports.inventoryRouter.post('/models/:id/update', modelController.updateModel_p
 /*
     - Model Instances
 */
+// GET form for adding instrument instance to stock
+exports.inventoryRouter.get('/addstock', modelInstanceController.instanceForm_get);
+// POST submitting new stock form
+exports.inventoryRouter.post('/addstock', modelInstanceController.instanceForm_post);
+// GET indivial insstrument instance details page
+exports.inventoryRouter.get('/instock/:id', modelInstanceController.instanceDetails_get);
+// Handle removing instance from stock
+exports.inventoryRouter.get('/instock/:id/delete', modelInstanceController.removeFromStock);
+// GET form for editing model
+exports.inventoryRouter.get('/instock/:id/update', modelInstanceController.updateInstance_get);
+// POST form for editing model
+exports.inventoryRouter.post('/instock/:id/update', modelInstanceController.updateInstance_post);

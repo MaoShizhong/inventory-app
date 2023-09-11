@@ -18,8 +18,9 @@ block content
 
         if isModelPage
             div(class="my-2 w-[min(90vw,800px)]")
-                each paragraph in category.description
-                    p(class="my-2 text-sm sm:text-base")= paragraph
+                if category.description
+                    each paragraph in category.description
+                        p(class="my-2 text-sm sm:text-base")= paragraph
 
         div(class="flex justify-center gap-8 m-4")
             a(href=`${category.url}/update`): button(class="px-4 py-2 border rounded-md border-slate-600") Edit #{editBtnText}

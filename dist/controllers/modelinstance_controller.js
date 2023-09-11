@@ -157,9 +157,6 @@ exports.updateInstance_post = [
             });
         }
         const updatedInstance = yield model_instance_1.ModelInstance.findByIdAndUpdate(req.params.id, newInstance, {});
-        console.log(oldInstance.url);
-        console.log('----');
-        console.log(updatedInstance.url);
         res.redirect(updatedInstance.url);
     })),
 ];

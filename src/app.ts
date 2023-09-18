@@ -57,4 +57,10 @@ app.use((err: Error, req: Request, res: Response): void => {
     res.render('error');
 });
 
+['SIGINT', 'exit'].forEach((exitEvent): void => {
+    process.on(exitEvent, (): void => {
+        mongoose.connection.close();
+    });
+});
+
 module.exports = app;

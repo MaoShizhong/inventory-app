@@ -54,4 +54,9 @@ app.use((err, req, res) => {
     res.status(err.status || 500);
     res.render('error');
 });
+['SIGINT', 'exit'].forEach((exitEvent) => {
+    process.on(exitEvent, () => {
+        mongoose_1.default.connection.close();
+    });
+});
 module.exports = app;

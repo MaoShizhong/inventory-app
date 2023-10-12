@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { body, validationResult } from 'express-validator';
-import { Model } from '../models/model';
-import { ModelInstance } from '../models/model_instance';
 import { Types } from 'mongoose';
 import { Manufacturer } from '../models/manufacturer';
+import { Model } from '../models/model';
+import { ModelInstance } from '../models/model_instance';
 
 // List all instrument types
 export const allManufacturers_get = asyncHandler(

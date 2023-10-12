@@ -28,10 +28,10 @@ block content
 
         if cannotDeleteEntry
             if isModelPage
-                p(class="text-xl text-red-800"): strong Can only delete if no instruments of this model in stock!
+                p(class="text-xl text-red-800"): strong Can only delete if no instruments of this model are in stock!
             else
-                p(class="text-xl text-red-800"): strong Can only delete if no stored models are #{isInstrumentPage ? 'of this instrument type' : 'from this manufacturer'}!
-                p(class="text-xl text-red-800"): strong Please delete any models using this #{isInstrumentPage ? 'instrument type' : 'manufacturer'}.
+                p(class="text-xl text-red-800"): strong There are still models #{isInstrumentPage ? 'of this instrument type' : 'from this manufacturer'} registered!
+                p(class="text-xl text-red-800"): strong Please go to the models tab and delete any registered models #{isInstrumentPage ? 'of this instrument type' : 'from this manufacturer'}.
 
         p(class="py-2") #[b In stock:]  #{instrumentsInStock.length}
 

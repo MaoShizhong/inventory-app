@@ -15,10 +15,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateManufacturer_post = exports.updateManufacturer_get = exports.manufacturerDetail_get = exports.deleteManufacturer = exports.createNewManufacturer = exports.manufacturerForm_get = exports.allManufacturers_get = void 0;
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const express_validator_1 = require("express-validator");
-const model_1 = require("../models/model");
-const model_instance_1 = require("../models/model_instance");
 const mongoose_1 = require("mongoose");
 const manufacturer_1 = require("../models/manufacturer");
+const model_1 = require("../models/model");
+const model_instance_1 = require("../models/model_instance");
 // List all instrument types
 exports.allManufacturers_get = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const allManufacturers = yield manufacturer_1.Manufacturer.find().sort({ name: 1 }).exec();
